@@ -1,8 +1,8 @@
 # Nevera Azul
 
-Entrepreneurship project within the framework of the course "Software Engineering" of BSc Telecommunications Engineering at UPM.
+Entrepreneurship project within the framework of "Software Engineering" course of BSc Telecommunications Engineering at UPM.
 
-Software platform that facilitates the contact between restaurants and customers of meals, as well as the tracking of the delivery and the status of the orders.
+Software platform that enables the contact between restaurants and customers of meals, as well as the tracking of the delivery and orders status.
 
 Implementation with Java EE. 
 Deployment in Google App Engine.
