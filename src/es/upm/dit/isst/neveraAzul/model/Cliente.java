@@ -17,7 +17,15 @@ public class Cliente implements Serializable{
 	private String apellido2;
 	private Blob imagen;
 	private String keyImagen;
+	private int numeroPedidos = 0;
 	
+	public int getNumeroPedidos(){
+		return numeroPedidos;
+	}
+	
+	public void setNumeroPedidos(int numeroPedidos){
+		this.numeroPedidos = numeroPedidos;
+	}	
 	public Blob getImagen() {
 		return imagen;
 	}

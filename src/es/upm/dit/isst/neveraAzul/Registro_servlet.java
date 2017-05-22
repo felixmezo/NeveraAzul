@@ -31,24 +31,27 @@ public class Registro_servlet extends HttpServlet{
 		Dao_impl dao = Dao_impl.getInstancia();
 		if ((modo.equals("hostelero")) && (!dao.existeCliente(email)) && (nombreEstablecimiento != null) && (!nombreEstablecimiento.equals(""))) {	
 			dao.crearHostelero(email, nombre, apellido1, apellido2, nombreEstablecimiento);
-			resp.setContentType("text/html");
-			resp.getWriter().print("<html><head><link rel=\"stylesheet\" type=\"text/css\" href=\"/css/bootstrap.css\" /></head> "
-					+ "<body><div class=\"alert alert-success\" role=\"alert\">Enhorabuena, te acabas de registrar LA NEVERA AZUL como hostelero.</div></body>"
-					+ "</html>");
-			resp.getWriter().print("<p><a href=/login>Volver</a></p>");
+			resp.sendRedirect("/");
+//			resp.setContentType("text/html");
+//			resp.getWriter().print("<html><head><link rel=\"stylesheet\" type=\"text/css\" href=\"/css/bootstrap.css\" /></head> "
+//					+ "<body><div class=\"alert alert-success\" role=\"alert\">Enhorabuena, te acabas de registrar LA NEVERA AZUL como hostelero.</div></body>"
+//					+ "</html>");
+//			resp.getWriter().print("<p><a href=/login>Volver</a></p>");
 		}else if ((modo.equals("cliente")) && (!dao.existeHostelero(email))){
 			dao.crearCliente(email, nombre, apellido1, apellido2);
-			resp.setContentType("text/html");
-			resp.getWriter().print("<html><head><link rel=\"stylesheet\" type=\"text/css\" href=\"/css/bootstrap.css\" /></head> "
-					+ "<body><div class=\"alert alert-success\" role=\"alert\">Enhorabuena, te acabas de registrar LA NEVERA AZUL como cliente.</div></body>"
-					+ "</html>");
-			resp.getWriter().print("<p><a href=/login>Volver</a></p>");
+			resp.sendRedirect("/");
+//			resp.setContentType("text/html");
+//			resp.getWriter().print("<html><head><link rel=\"stylesheet\" type=\"text/css\" href=\"/css/bootstrap.css\" /></head> "
+//					+ "<body><div class=\"alert alert-success\" role=\"alert\">Enhorabuena, te acabas de registrar LA NEVERA AZUL como cliente.</div></body>"
+//					+ "</html>");
+//			resp.getWriter().print("<p><a href=/login>Volver</a></p>");
 		}else{
-			resp.setContentType("text/html");
-			resp.getWriter().print("<html><head><link rel=\"stylesheet\" type=\"text/css\" href=\"/css/bootstrap.css\" /></head> "
-					+ "<body><div class=\"alert alert-danger\" role=\"alert\">Ha debido de haber algún error. Intentalo de nuevo.</div></body>"
-					+ "</html>");
-			resp.getWriter().print("<p><a href=/login>Volver</a></p>");
+			resp.sendRedirect("/");
+//			resp.setContentType("text/html");
+//			resp.getWriter().print("<html><head><link rel=\"stylesheet\" type=\"text/css\" href=\"/css/bootstrap.css\" /></head> "
+//					+ "<body><div class=\"alert alert-danger\" role=\"alert\">Ha debido de haber algï¿½n error. Intentalo de nuevo.</div></body>"
+//					+ "</html>");
+//			resp.getWriter().print("<p><a href=/login>Volver</a></p>");
 		}		
 	}
 

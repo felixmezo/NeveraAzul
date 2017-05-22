@@ -9,6 +9,7 @@ import com.googlecode.objectify.annotation.Index;
 @Entity
 public class Producto implements Serializable{
 	private static final long serialVersionUID = 1L;
+	
 	@Id @Index private Long idProducto;
 	@Index private String nombre;
 	private String descripcion;
@@ -43,6 +44,7 @@ public class Producto implements Serializable{
 	public void setIdProducto(Long idProducto) {
 		this.idProducto = idProducto;
 	}
+	
 	public String getNombre() {
 		return nombre;
 	}

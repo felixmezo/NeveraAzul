@@ -22,6 +22,9 @@ public class Pedido implements Serializable {
 		@Index private List<Producto> productosPedido;
 		private Hostelero hostelero;
 		private Cliente cliente;
+		private int descuento;
+		private float precioTotal;
+		
 		public Cliente getCliente() {
 			return cliente;
 		}
@@ -36,7 +39,7 @@ public class Pedido implements Serializable {
 		
 		public Pedido(){}
 		
-		public Pedido(Hostelero hostelero, String emailHostelero, String emailCliente, Cliente cliente) {
+		public Pedido(Hostelero hostelero, String emailHostelero, String emailCliente, Cliente cliente, int descuento) {
 			super();
 			this.emailHostelero = emailHostelero;
 			this.emailCliente = emailCliente;
@@ -46,8 +49,18 @@ public class Pedido implements Serializable {
 			this.estado = Estado.eligiendo;
 			this.hostelero = hostelero;
 			this.cliente = cliente;
+			this.descuento = descuento;
+			this.precioTotal = 0;
 		}
 		
+
+		public float getPrecioTotal() {
+			return precioTotal;
+		}
+
+		public void setPrecioTotal(float precioTotal) {
+			this.precioTotal = precioTotal;
+		}
 
 		public Hostelero getHostelero() {
 			return hostelero;
@@ -64,6 +77,14 @@ public class Pedido implements Serializable {
 		public void setIdPedido(Long idPedido) {
 			this.idPedido = idPedido;
 		}
+		public int getDescuento() {
+			return descuento;
+		}
+
+		public void setDescuento(int descuento) {
+			this.descuento = descuento;
+		}
+
 
 		public String getEmailHostelero() {
 			return emailHostelero;

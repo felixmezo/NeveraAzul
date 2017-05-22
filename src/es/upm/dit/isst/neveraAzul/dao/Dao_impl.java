@@ -1,17 +1,19 @@
 package es.upm.dit.isst.neveraAzul.dao;
 
+import static com.googlecode.objectify.ObjectifyService.ofy;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import com.googlecode.objectify.Key;
 
+import es.upm.dit.isst.neveraAzul.model.Administrador;
 import es.upm.dit.isst.neveraAzul.model.Cliente;
 import es.upm.dit.isst.neveraAzul.model.Estado;
 import es.upm.dit.isst.neveraAzul.model.Hostelero;
+import es.upm.dit.isst.neveraAzul.model.Opiniones;
 import es.upm.dit.isst.neveraAzul.model.Pedido;
 import es.upm.dit.isst.neveraAzul.model.Producto;
-
-import static com.googlecode.objectify.ObjectifyService.ofy;
 
 public class Dao_impl implements Dao{
 	
@@ -43,8 +45,7 @@ public class Dao_impl implements Dao{
 
 	
 	public Pedido buscarPedidoEligiendo(Cliente cliente){
-		List<Pedido> pedidos = ofy().load().type(Pedido.class).filter("estado", Estado.eligiendo).list();
-//		List<Pedido> pedidos = this.leerTodosPedido();
+		List<Pedido> pedidos = this.leerTodosPedido();
 		for(Pedido pedido: pedidos){
 			if(pedido.getEmailCliente().equals(cliente.getEmail()) && pedido.getEstado() == Estado.eligiendo){
 				return pedido;
@@ -53,17 +54,23 @@ public class Dao_impl implements Dao{
 		return null;
 	}
 	
-//	public List<Pedido> buscarPedidosEligiendo(Cliente cliente){
-//		List<Pedido> pedidosEligiendo = ofy().load().type(Pedido.class).filter("estado", Estado.eligiendo).list();
-//		for(Pedido pedido: pedidosEligiendo){
-//			if (pedido.getCliente().getEmail() == )
-//		}
-//	}
+	public Pedido BuscarPedidoPorId(long IdPedido){
+		Pedido pedido = ofy().load().type(Pedido.class).filterKey(Key.create(Pedido.class, IdPedido)).first().now();
+		return pedido;
+	}
 
+	
+	
+	public void setPrecioTotalPedido(Pedido pedidoActual, float precioTotal){
+		pedidoActual.setPrecioTotal(precioTotal);
+		ofy().save().entity(pedidoActual).now();
+	}
+	
 	@Override
 	public Pedido crearPedido(String emailHostelero, Hostelero hostelero, String emailCliente) {
 		Cliente cliente = this.buscarClientePorEmail(emailCliente);
-		Pedido pedido = new Pedido(hostelero, emailHostelero, emailCliente, cliente);
+		int descuento = this.saberDescuento();
+		Pedido pedido = new Pedido(hostelero, emailHostelero, emailCliente, cliente, descuento);
 		ofy().save().entity(pedido).now();
 		return pedido;
 	}
@@ -123,8 +130,6 @@ public class Dao_impl implements Dao{
 	}
 
 
-
-
 	@Override
 	public Pedido borraPedido(Pedido pedido) {
 		// TODO Auto-generated method stub
@@ -177,6 +182,12 @@ public class Dao_impl implements Dao{
 	public void borrarTodosProductos() {
 		List<Producto> productos = ofy().load().type(Producto.class).list();
 		ofy().delete().entities(productos).now();
+	}
+	
+	@Override
+	public void borrarProducto(long idProducto){
+		Producto producto = this.BuscarProductoPorId(idProducto);
+		ofy().delete().entity(producto).now();
 	}
 	
 	@Override
@@ -238,12 +249,130 @@ public class Dao_impl implements Dao{
 			ofy().save().entity(pedido).now();
 		}
 	}
+	
+	
 	@Override
 	public Pedido actualizaEstadoSolicitado(Pedido pedido) {
 		pedido.setEstado(Estado.solicitado);
 		ofy().save().entity(pedido).now();
-
 		return pedido;
 	}
+	
+	@Override
+	public Pedido actualizaEstadoAceptadoHostelero(Pedido pedido) {
+		pedido.setEstado(Estado.aceptado_hostelero);
+		ofy().save().entity(pedido).now();
+		return pedido;
+	}
+	
+	
+	
+	@Override
+	public Opiniones crearOpinion(String establecimientoHostelero, String emailHostelero, String emailCliente, String descripcion, String titulo ,int puntuacion){
+		Opiniones opinion = new Opiniones(establecimientoHostelero,emailHostelero,emailCliente,descripcion,titulo,puntuacion);
+		ofy().save().entity(opinion).now();
+		return opinion;
+	}
+	
+	@Override
+	public boolean existeOpinionHostelero(String establecimientoHostelero){
+		Opiniones opinion = ofy().load().type(Opiniones.class).filterKey(Key.create(Opiniones.class, establecimientoHostelero)).first().now();
+		if (opinion != null) {
+			return true;
+		}
+		return false;
+	}
+	
+	@Override
+	public boolean existeOpinionCliente(String emailCliente){
+		Opiniones opinion = ofy().load().type(Opiniones.class).filterKey(Key.create(Opiniones.class, emailCliente)).first().now();
+		if (opinion != null) {
+			return true;
+		}
+		return false;
+	}
+	
+	@Override
+	public List<Opiniones> leerOpinionesPorHostelero(String establecimientoHostelero){
+		List<Opiniones> opinionesHostelero = ofy().load().type(Opiniones.class).filter("establecimientoHostelero", establecimientoHostelero).list();
+		return opinionesHostelero;
+	}
+	
+	@Override
+	public List<Opiniones> leerOpinionesPorCliente(String emailCliente){
+		List<Opiniones> opinionesCliente = ofy().load().type(Opiniones.class).filter("emailCliente", emailCliente).list();
+		return opinionesCliente;
+	}
+	
+	@Override
+	public void borrarTodasOpiniones(){
+		List<Opiniones> opiniones = ofy().load().type(Opiniones.class).list();
+		ofy().delete().entities(opiniones).now();
+	}
+	@Override
+	public Administrador crearAdmin(String apellido1){
+		Administrador admininstrador = new Administrador(apellido1);
+		ofy().save().entity(admininstrador).now();
+		return admininstrador;
+	}
+	
+	public boolean existeAdmin(String emailAdmin){
+		Administrador admninstrador = ofy().load().type(Administrador.class).filterKey(Key.create(Administrador.class, emailAdmin)).first().now();
+		if (admninstrador != null) {
+			return true;
+		}
+		return false;
+	}
+	public Administrador buscarAdminPorEmail(String email){
+		Administrador administrador = ofy().load().type(Administrador.class).filterKey(Key.create(Administrador.class, email)).first().now();
+		if (administrador != null) {
+			return administrador;
+		}
+		return null;
+	}
+	
+	@Override
+	public void ponerDescuentoATodosPedidos(int descuento){
+		List<Pedido> pedidos = this.leerTodosPedido();
+		for(Pedido pedido: pedidos){
+				pedido.setDescuento(descuento);
+				ofy().save().entity(pedido).now();
+		}
+		int descuento2 = this.saberDescuento();
+		System.out.println("el valor del descuento en el DAO es : " + descuento2);
+	}
+	@Override
+	public int saberDescuento(){
+		 int descuento = 0;
+		List<Pedido> pedidos = this.leerTodosPedido();
+		for(Pedido pedido: pedidos){
+			if (descuento != pedido.getDescuento())
+			descuento = pedido.getDescuento();
+			}
+		return descuento;
+	}
+	
+	@Override
+	public void borrarAdmin() {
+		Administrador administrador = ofy().load().type(Administrador.class).filterKey(Key.create(Administrador.class, "neveraazul7@gmail.com")).first().now();
+		ofy().delete().entities(administrador).now();
+	}
+	@Override
+	public void sumaPedidoACliente (String email){
+		Cliente cliente = ofy().load().type(Cliente.class).filterKey(Key.create(Cliente.class, email)).first().now();
+		int numerPedidosAntes = cliente.getNumeroPedidos();
+		int numeroPedidos = numerPedidosAntes +1;
+		cliente.setNumeroPedidos(numeroPedidos);
+		ofy().save().entity(cliente).now();		
+	}
+	@Override
+	public void resetearNumeroPedidosACliente(String email){
+		Cliente cliente = ofy().load().type(Cliente.class).filterKey(Key.create(Cliente.class, email)).first().now();
+		cliente.setNumeroPedidos(0);
+		ofy().save().entity(cliente).now();	
+		
+	}
+
+	
 	
 }

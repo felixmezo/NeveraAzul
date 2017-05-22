@@ -44,15 +44,11 @@ public class RegistroProducto_servlet extends HttpServlet{
 		
 		if ((descripcion != null) && (nombre != null)) {
 			Producto producto = dao.crearProducto(nombre, descripcion, user, precio, establecimientoHostelero, enOferta);
-//			resp.setContentType("text/html");
-//			resp.getWriter().print("<html><head><link rel=\"stylesheet\" type=\"text/css\" href=\"/css/bootstrap.css\" /></head> "
-//					+ "<body><div class=\"alert alert-success\" role=\"alert\">Enhorabuena, acabas de publicar un producto en LA NEVERA AZUL.</div></body>"
-//					+ "</html>");
-//			resp.getWriter().print("<p><a href=/indexhostelero>Volver a mi perfil</a></p>");
+
 		}else{
 			resp.setContentType("text/html");
 			resp.getWriter().print("<html><head><link rel=\"stylesheet\" type=\"text/css\" href=\"/css/bootstrap.css\" /></head> "
-					+ "<body><div class=\"alert alert-danger\" role=\"alert\">Ha habido algún error. Vuelve a intentarlo.</div></body>"
+					+ "<body><div class=\"alert alert-danger\" role=\"alert\">Ha habido algï¿½n error. Vuelve a intentarlo.</div></body>"
 					+ "</html>");			
 			resp.getWriter().print("<p><a href=/indexhostelero>Volver a mi perfil</a></p>");
 		}

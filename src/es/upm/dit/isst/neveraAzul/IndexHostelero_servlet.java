@@ -41,4 +41,14 @@ public class IndexHostelero_servlet extends HttpServlet{
 		view.forward(req, resp);
 	}
 	
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		Dao_impl dao = Dao_impl.getInstancia();	
+
+		String idProducto = req.getParameter("idProducto");
+		String idProducto2 = idProducto.toString();
+		long longidproducto = Long.parseLong(idProducto2);
+		dao.borrarProducto(longidproducto);
+		resp.sendRedirect("indexhostelero");
+		
+	}	
 }

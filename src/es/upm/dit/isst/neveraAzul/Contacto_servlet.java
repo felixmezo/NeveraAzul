@@ -20,12 +20,14 @@ protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws Se
 
 @Override
 protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-	resp.setContentType("text/html");
-	resp.getWriter().print("<html><head><link rel=\"stylesheet\" type=\"text/css\" href=\"/css/bootstrap.css\" /></head> "
-			+ "<body><div class=\"alert alert-success\" role=\"alert\">Gracias por contactar con nosotros.</div>"
-			+ "<div class=\"alert alert-success\" role=\"alert\">Nuestro equipo se pondrá en contacto con usted.</div></body>"
-			+ "</html>");
-	resp.getWriter().print("<p><a href=/>Volver</a></p>");
+	
+	resp.sendRedirect("/");
+//	resp.setContentType("text/html");
+//	resp.getWriter().print("<html><head><link rel=\"stylesheet\" type=\"text/css\" href=\"/css/bootstrap.css\" /></head> "
+//			+ "<body><div class=\"alert alert-success\" role=\"alert\">Gracias por contactar con nosotros.</div>"
+//			+ "<div class=\"alert alert-success\" role=\"alert\">Nuestro equipo se pondrï¿½ en contacto con usted.</div></body>"
+//			+ "</html>");
+//	resp.getWriter().print("<p><a href=/>Volver</a></p>");
 
 }
 

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import es.upm.dit.isst.neveraAzul.dao.Dao_impl;
+import es.upm.dit.isst.neveraAzul.model.Administrador;
 import es.upm.dit.isst.neveraAzul.model.Cliente;
 import es.upm.dit.isst.neveraAzul.model.Hostelero;
 
@@ -39,6 +40,11 @@ public class PortadaUsuario_servlet extends HttpServlet{
 			nombre = cliente.getNombre();
 			apellido1 = cliente.getApellido1();
 			apellido2 = cliente.getApellido2();
+		}else if (dao.buscarAdminPorEmail(user) != null){
+			tipoUsuario = "Admin";
+			Administrador admin = dao.buscarAdminPorEmail(user);
+			nombre = admin.getNombre();
+			apellido1 = admin.getApellido1();
 		}else{
 			tipoUsuario = "Error";
 		}
