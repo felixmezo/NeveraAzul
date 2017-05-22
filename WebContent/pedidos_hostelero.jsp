@@ -7,22 +7,18 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<link rel="stylesheet" media="screen" href="/css/bootstrap.css" />
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<title>Pedidos</title>
+<link rel="stylesheet" media="screen" href="/css/bootstrap.css" />
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Pedidos</title>
 </head>
-<%@ include file="cabecera.jsp" %>
+<%@ include file="cabecera.jsp"%>
 
 <body>
-	<section id="nav">
-		<%@ include file="navegacion_hostelero.jsp" %>
-	</section>
-	<section id="contenido">
-		<article>
-
-
-	<c:if test="${not empty pedidos}">
-		<div class="panel panel-default">
+	<section id="nav"> <%@ include
+		file="navegacion_hostelero.jsp"%> </section>
+	<section id="contenido"> <article> <c:if
+		test="${not empty pedidos}">
+		<div id="tabla0" class="panel panel-default">
 			<div class="panel-heading">Estos son los pedidos que han hecho
 				a tu establecimiento y su estado.</div>
 			<div class="panel-body">
@@ -36,23 +32,35 @@
 				<tr>
 					<th>Id Pedido</th>
 					<th>Cliente</th>
+					<th>Precio</th>
 					<th>Estado</th>
+					<c:forEach items="${pedidos}" var="pedido1">
+						<c:if test="${pedido1.estado=='solicitado'}">
+							<th>Aceptar Pedido</th>
+						</c:if>
+					</c:forEach>
 				</tr>
 				<c:forEach items="${pedidos}" var="pedido">
 					<tr>
 						<td><c:out value="${pedido.idPedido}" /></td>
-						<td><c:out value="${pedido.cliente.nombre}" /></td>
+						<td><c:out value="${pedido.cliente.email}" /></td>
+					<td><c:out value="${pedido.precioTotal}" /> €</td>
 						<td><c:out value="${pedido.estado}" /></td>
+						<c:if test="${pedido.estado=='solicitado'}">
+							<td><form action="/pedidoshostelero" method="post">
+								<button type="submit" class="btn btn-default" 
+									name="idPedido" value="${pedido.idPedido}">Aceptar</button>
+								</form>
+							</td>
+						</c:if>
 					</tr>
+									
 				</c:forEach>
 			</table>
 		</div>
-	</c:if>
-	<c:if test="${empty pedidos}">
+	</c:if> <c:if test="${empty pedidos}">
 		<p>Todavía no te han hecho ningún pedido.</p>
-	</c:if>
-</article>
-</section>
+	</c:if> </article> </section>
 
 </body>
 </html>

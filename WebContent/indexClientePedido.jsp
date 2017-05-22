@@ -14,14 +14,24 @@
 </head>
 <%@ include file="cabecera.jsp"%>
 <body>
-	<section id="nav"> 
-		<%@ include file="navegacion_cliente.jsp"%>
+
+
+	<script type="text/javascript">
+		function pedidoFinalizado(){
+			alert("Pedido finalizado con éxito.")
+		}
+        function productoAñadido() {
+			alert("Producto añadido con éxito.")
+        }
+	</script>
+	
+	
+	<section id="nav"> <%@ include file="navegacion_cliente.jsp"%>
 	</section>
-	<section id="contenido"> 
-	<article> 
-	<c:if test="${not empty user}">
+	<section id="contenido"> <article> <c:if
+		test="${not empty user}">
 		<label> Hola <c:out value="${nombreCliente}"></c:out> <c:out
-				value="${apellido1}"></c:out> <c:out value="${apellido2}"></c:out>
+				value="${apellido1}"></c:out>
 		</label>
 		<br>
 		<c:if test="${not empty productosPedido}">
@@ -42,14 +52,22 @@
 							<tr>
 								<td><c:out value="${producto.nombre}" /></td>
 								<td><c:out value="${producto.descripcion}" /></td>
-								<td><c:out value="${producto.precio}" /> euro(s)</td>
+								<td><c:out value="${producto.precio}" /> €</td>
 								<td><c:out value="${producto.establecimientoHostelero}" /></td>
 							</tr>
 						</c:forEach>
 					</table>
 				</div>
+				<hr>
+				<label>Precio total: <c:out value="${precioTotal}" /> €
+				</label>
+				<br>
+				<c:if test="${descuento ne '0'}">
+					<label>El descuento aplicado es del <c:out value="${descuento}"></c:out> %</label><br>	
+				</c:if>
+				<hr>
 				<form action="/indexclientepedido" method="post">
-					<button type="submit" class="btn btn-default" name="finalizar"
+					<button type="submit" class="btn btn-default" name="finalizar" onclick="pedidoFinalizado();"
 						value="Finalizar Pedido">Finalizar Pedido</button>
 				</form>
 				<hr>
@@ -77,28 +95,36 @@
 							<th>Descripcion</th>
 							<th>Precio</th>
 							<th>Establecimiento</th>
-							<th>Click para Pedir</th>
+							<th>Pedir</th>
+							<th>Opina</th>
 						</tr>
 						<c:forEach items="${todosProductos}" var="producto">
 							<c:if test="${producto.enOferta == 'SI'}">
 								<tr>
 									<td><c:out value="${producto.nombre}" /></td>
 									<td><c:out value="${producto.descripcion}" /></td>
-									<td><c:out value="${producto.precio}" /> euro(s)</td>
+									<td><c:out value="${producto.precio}" /> €</td>
 									<td><c:out value="${producto.establecimientoHostelero}" /></td>
 									<td>
 										<form action="/indexclientepedido" method="post">
-											<button type="submit" class="btn btn-default"
+											<button type="submit" class="btn btn-default" onclick="productoAñadido();"
 												name="idProducto" value="${producto.idProducto}">Pedir</button>
+												</form>
+									</td>
+
+									<td>
+										<form action="/descripcionHostelero" method="get">
+											<button type="submit" class="btn btn-default" 
+												name="emailHostelero" value="${producto.emailHostelero }">Opina!</button>
 										</form>
 									</td>
+
 								</tr>
 							</c:if>
 						</c:forEach>
 					</table>
 				</div>
 				</section>
-				<hr>
 				<section id="tabla2">
 				<div class="panel panel-default">
 					<div class="panel-heading">PRODUCTOS SIN OFERTA</div>
@@ -112,21 +138,31 @@
 							<th>Descripcion</th>
 							<th>Precio</th>
 							<th>Establecimiento</th>
-							<th>Click para Pedir</th>
+							<th>Pedir</th>
+							<th>Opina</th>
 						</tr>
 						<c:forEach items="${todosProductos}" var="producto">
 							<c:if test="${producto.enOferta == 'NO'}">
 								<tr>
 									<td><c:out value="${producto.nombre}" /></td>
 									<td><c:out value="${producto.descripcion}" /></td>
-									<td><c:out value="${producto.precio}" /> euro(s)</td>
+									<td><c:out value="${producto.precio}" /> €</td>
 									<td><c:out value="${producto.establecimientoHostelero}" /></td>
+									<%--Esto si funciona --%>
 									<td>
 										<form action="/indexclientepedido" method="post">
-											<button type="submit" class="btn btn-default"
+											<button type="submit" class="btn btn-default" onclick="productoAñadido();"
 												name="idProducto" value="${producto.idProducto}">Pedir</button>
 										</form>
 									</td>
+
+									<td>
+										<form action="/descripcionHostelero" method="get">
+											<button type="submit" class="btn btn-default"
+												name="emailHostelero" value="${producto.emailHostelero }">Opina!</button>
+										</form>
+									</td>
+
 								</tr>
 							</c:if>
 						</c:forEach>
@@ -141,9 +177,8 @@
 	</c:if> <c:if test="${empty user}">
 		<p>Algo esta fallando.</p>
 	</c:if>
-	<hr>
 	</article> </section>
 </body>
-<%@ include file="footer.html"%>
+<%-- <%@ include file="footer.html"%> --%>
 
 </html>

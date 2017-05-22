@@ -19,7 +19,7 @@
 				<li><a href="/pedidoshostelero">Pedidos</a></li>
 				<li><a href="/registroProducto">Registrar un Producto</a></li>
 				<li><a href="/indexhostelero">Mis productos</a></li>
-				<li><a href="#">Mis opiniones</a></li>
+				<li><a href="/misOpiniones">Mis opiniones</a></li>
 			</ul>
 		</div>
 	</div>

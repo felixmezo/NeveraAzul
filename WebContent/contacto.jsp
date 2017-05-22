@@ -5,16 +5,21 @@
 	pageEncoding="utf-8"%>
 <html>
 <head>
-	<meta charset="utf-8">
-	<link rel="stylesheet" media="screen" href="/css/bootstrap.css" />
-	<script type="text/javascript" src="jquery-3.2.1.min.js"></script>
+<meta charset="utf-8">
+<link rel="stylesheet" media="screen" href="/css/bootstrap.css" />
+<script type="text/javascript" src="jquery-3.2.1.min.js"></script>
 </head>
 
-<%@ include file="cabecera.jsp" %>
+<%@ include file="cabecera.jsp"%>
 
 <body>
 
 	<script type="text/javascript">
+// 		function contactoFinalizado(){
+// 			alert("Nuestro equipo se pondrá en contacto con usted.");
+// 		}
+	
+	
 		$(document)
 				.ready(
 						function() {
@@ -156,7 +161,7 @@
 											});
 						});
 	</script>
-	<div class="container" style=" margin-top: 20px; ">
+	<div class="container" style="margin-top: 20px;">
 
 		<form class="well form-horizontal" action=" " method="post"
 			id="contact_form">
@@ -173,7 +178,7 @@
 						<div class="input-group">
 							<span class="input-group-addon"><i
 								class="glyphicon glyphicon-user"></i></span> <input name="first_name"
-								placeholder="Nombre" class="form-control" type="text">
+								placeholder="Nombre" required class="form-control" type="text">
 						</div>
 					</div>
 				</div>
@@ -185,7 +190,7 @@
 					<div class="col-md-4 inputGroupContainer">
 						<div class="input-group">
 							<span class="input-group-addon"><i
-								class="glyphicon glyphicon-user"></i></span> <input name="last_name"
+								class="glyphicon glyphicon-user"></i></span> <input required name="last_name"
 								placeholder="Primer Apellido" class="form-control" type="text">
 						</div>
 					</div>
@@ -197,7 +202,7 @@
 					<div class="col-md-4 inputGroupContainer">
 						<div class="input-group">
 							<span class="input-group-addon"><i
-								class="glyphicon glyphicon-envelope"></i></span> <input name="email"
+								class="glyphicon glyphicon-envelope"></i></span> <input required name="email"
 								placeholder="E-Mail" class="form-control" type="text">
 						</div>
 					</div>
@@ -211,7 +216,7 @@
 					<div class="col-md-4 inputGroupContainer">
 						<div class="input-group">
 							<span class="input-group-addon"><i
-								class="glyphicon glyphicon-earphone"></i></span> <input name="phone"
+								class="glyphicon glyphicon-earphone"></i></span> <input required name="phone"
 								placeholder="(91) 589 02 25" class="form-control" type="text">
 						</div>
 					</div>
@@ -224,7 +229,7 @@
 					<div class="col-md-4 inputGroupContainer">
 						<div class="input-group">
 							<span class="input-group-addon"><i
-								class="glyphicon glyphicon-home"></i></span> <input name="address"
+								class="glyphicon glyphicon-home"></i></span> <input required name="address"
 								placeholder="Dirección" class="form-control" type="text">
 						</div>
 					</div>
@@ -237,7 +242,7 @@
 					<div class="col-md-4 inputGroupContainer">
 						<div class="input-group">
 							<span class="input-group-addon"><i
-								class="glyphicon glyphicon-home"></i></span> <input name="city"
+								class="glyphicon glyphicon-home"></i></span> <input required  name="city"
 								placeholder="Ciudad" class="form-control" type="text">
 						</div>
 					</div>
@@ -250,7 +255,7 @@
 					<div class="col-md-4 inputGroupContainer">
 						<div class="input-group">
 							<span class="input-group-addon"><i
-								class="glyphicon glyphicon-home"></i></span> <input name="zip"
+								class="glyphicon glyphicon-home"></i></span> <input required name="zip"
 								placeholder="Código Postal" class="form-control" type="text">
 						</div>
 					</div>
@@ -258,7 +263,8 @@
 
 				<!-- radio checks -->
 				<div class="form-group">
-					<label class="col-md-4 control-label">¿Tienes algún restaurante?</label>
+					<label class="col-md-4 control-label">¿Tienes algún
+						restaurante?</label>
 					<div class="col-md-4">
 						<div class="radio">
 							<label> <input type="radio" name="hosting" value="si" />
@@ -281,7 +287,7 @@
 						<div class="input-group">
 							<span class="input-group-addon"><i
 								class="glyphicon glyphicon-pencil"></i></span>
-							<textarea class="form-control" name="comment"
+							<textarea required class="form-control" name="comment"
 								placeholder="Descripcion"></textarea>
 						</div>
 					</div>
@@ -297,7 +303,7 @@
 				<div class="form-group">
 					<label class="col-md-4 control-label"></label>
 					<div class="col-md-4">
-						<button type="submit" class="btn btn-warning">
+						<button type="submit" class="btn btn-warning" onClick="contactoFinalizado()">
 							Send <span class="glyphicon glyphicon-send"></span>
 						</button>
 					</div>
@@ -309,7 +315,7 @@
 	</div>
 </body>
 
-<%@ include file="footer.html" %>
+<%-- <%@ include file="footer.html"%> --%>
 
 
 </html>

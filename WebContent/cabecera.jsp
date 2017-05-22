@@ -6,29 +6,30 @@
 
 <html lang="es">
 <head>
-	<meta charset="utf-8">
-    <link rel="stylesheet" href="/css/cabecera_style.css">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="/css/cabecera_style.css">
 </head>
- 
+
 <body>
 	<header id="main-header">
-		<a id="logo-header" href="/">
-			<img src="/images/logo_nevera.png"
-				 width="55" 
-				 height="55"
-				 >		
-		</a> 
+		<a id="logo-header" href="/"> <img src="/images/logo_nevera.png"
+			width="55" height="55">
+		</a>
+		<p class="NazulCabecera">La Nevera Azul</p>
 		<nav>
 			<ul>
-				<li class="no_rojo"><a href="/">Inicio</a></li>
+				<c:if test="${not empty user}">
+					<li class="no_rojo"><a href="/portadaUsuario">Perfil</a></li>
+				</c:if>
 				<li class="no_rojo"><a href="/contacto">Contacto</a></li>
-				<li class="rojo_sesion">
-					<a href="<c:url value="${url}"/>">
-					<c:out value="${urlLinktext}" />
-					</a>
-				</li>
+				<c:if test="${empty user}">
+					<li class="no_rojo"><a href="/registro">Regístrate</a></li>
+				</c:if>
+				<li class="rojo_sesion"><a href="<c:url value="${url}"/>">
+						<c:out value="${urlLinktext}" />
+				</a></li>
 			</ul>
 		</nav>
-	</header>	
+	</header>
 </body>
 </html>

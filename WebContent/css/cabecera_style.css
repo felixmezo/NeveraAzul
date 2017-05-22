@@ -1,71 +1,87 @@
 #main-header {
 	background: white;
-/* 	color: #333; */
+	/* 	color: #333; */
 	height: 80px;
-	width: 100%; /* hacemos que la cabecera ocupe el ancho completo de la página */
+	width: 100%;
+	/* hacemos que la cabecera ocupe el ancho completo de la pï¿½gina */
 	left: 0; /* Posicionamos la cabecera al lado izquierdo */
 	top: 0; /* Posicionamos la cabecera pegada arriba */
-	position: fixed; /* Hacemos que la cabecera tenga una posición fija */
-}	
-	#main-header li.no_rojo {
- 		color: #333;
-	}
-	
-	#main-header li.rojo_sesion {
- 		color: red;
-	}
- 
+	position: fixed; /* Hacemos que la cabecera tenga una posiciï¿½n fija */
+	z-index: 100;
+}
+
+#main-header li.no_rojo {
+	color: #333;
+}
+
+#main-header li.rojo_sesion {
+	color: red;
+}
+
+.NazulCabecera {
+	text-align: left;
+	padding-left: 15px;
+	padding-top: 10px;
+	float: left;
+	width: 25%;
+	font-weight: normal;
+	color: #6f79c5;
+	font-size: 3rem;
+	font-family: arial black, sans-serif;
+	line-height: 2;
+}
+
 /*
  * Logo
  */
- 
 #logo-header {
 	float: left;
 	padding: 15px 0 0 20px;
 	text-decoration: none;
 }
-	#logo-header:hover {
-		color: #cce5ff;
-	}
-	
-	#logo-header .site-name {
-		display: block;
-		font-weight: 700;
-		font-size: 1.2em;
-	}
-	
-	#logo-header .site-desc {
-		display: block;
-		font-weight: 300;
-		font-size: 0.8em;
-		color: #999;
-	}
-	
- 
+
+#logo-header:hover {
+	color: #cce5ff;
+}
+
+#logo-header .site-name {
+	display: block;
+	font-weight: 700;
+	font-size: 1.2em;
+}
+
+#logo-header .site-desc {
+	display: block;
+	font-weight: 300;
+	font-size: 0.8em;
+	color: #999;
+}
+
 /*
- * Navegación
+ * Navegaciï¿½n
  */
 nav {
 	float: right;
 }
-	nav ul {
-		margin: 0;
-		padding: 0;
-		list-style: none;
-		padding-right: 20px;
-	}
-	
-		nav ul li {
-			display: inline-block;
-			line-height: 80px;
-		}
-			
-			nav ul li a {
-				display: block;
-				padding: 0 10px;
-				text-decoration: none;
-			}
-			
-				nav ul li a:hover {
-					background: #cce5ff;
-				}			
+
+nav ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	padding-right: 20px;
+}
+
+nav ul li {
+	display: inline-block;
+	line-height: 80px;
+}
+
+nav ul li a {
+	display: block;
+	padding: 0 10px;
+	text-decoration: none;
+}
+
+nav ul li a:hover {
+	background: #cce5ff;
+}
